@@ -3,10 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.gmail.shaahi2010</groupId>
+		<artifactId>dang-o-doong</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+<!--		<groupId>org.springframework.boot</groupId>-->
+<!--		<artifactId>spring-boot-starter-parent</artifactId>-->
+<!--		<version>2.3.3.RELEASE</version>-->
+<!--		<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
 	</parent>
 	<groupId>com.gmail.shaahi2010.dangodoong</groupId>
 	<artifactId>bot</artifactId>
@@ -17,6 +20,8 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+		<docker.image.exposed.port>8080</docker.image.exposed.port>
+		<docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
 	</properties>
 
 	<dependencies>
@@ -48,7 +53,6 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-hal-explorer</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -59,6 +63,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.telegram/telegrambots -->
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots</artifactId>
+			<version>4.9.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -92,5 +103,18 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<profiles>
+		<profile>
+			<id>buildDocker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker.plugin.version}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
